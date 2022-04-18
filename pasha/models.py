@@ -51,6 +51,17 @@ class Resident(models.Model):
     neighborhood = models.ForeignKey(Neighborhood, on_delete=models.SET_NULL, null=True, blank=True)
     email = models.CharField(max_length=50)
 
+    # Method to convert to strings
+    def __str__(self):
+        return self
+
+    # Method to create a user
+    def create_resident(self):
+        self.save()
+
+    def delete_resident(self):
+        self.delete()
+
 # The Business class
 class Business(models.Model):
     name = models.CharField(max_length=40)
