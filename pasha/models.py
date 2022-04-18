@@ -2,6 +2,8 @@ import email
 from django.db import models
 from unicodedata import CloudinaryField
 from django.contrib.auth.models import User
+from django.dispatch import receiver
+from django.db.models.signals import post_save, post_delete
 
 # Create your models here.
 
@@ -53,14 +55,21 @@ class Resident(models.Model):
 
     # Method to convert to strings
     def __str__(self):
-        return self
+        return f'{self.user.username} resident'
 
     # Method to create a user
-    def create_resident(self):
-        self.save()
+    @receiver(post_save, sender=User)
+    def create_resident(sender, instance, created, **kwargs):
+        if created:
+            Resident.objects.create(user=instance)
 
-    def delete_resident(self):
-        self.delete()
+    @receiver(post_save, sender=User)
+    def save_resident(sender, instance, **kwargs):
+        instance.resident.save()
+    
+    @receiver(post_delete, sender=User)
+    def delete_resident(sender, instance, **kwards):
+        instance.resident.delete()
 
 # The Business class
 class Business(models.Model):
@@ -68,3 +77,6 @@ class Business(models.Model):
     resident = models.ForeignKey(Resident, on_delete=models.SET_NULL, null = True, blank=True)
     neighborhood = models.ForeignKey(Neighborhood, on_delete=models.SET_NULL, null = True, blank=True)
     email = models.CharField(max_length=50)
+
+    # Method to convert to string
+    def 
