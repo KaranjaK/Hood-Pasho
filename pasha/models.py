@@ -37,8 +37,8 @@ class Neighborhood(models.Model):
 
     # Method to search a neighborbood
     @classmethod
-    def find_neighborhood(cls, neighborhood_id):
-        return cls.objects.filter(id=neighborhood_id)
+    def find_neighborhood(cls, name):
+        return cls.objects.filter(name_icontains=name).all()
     
     # Method to update an occupant
     @classmethod
@@ -79,4 +79,27 @@ class Business(models.Model):
     email = models.CharField(max_length=50)
 
     # Method to convert to string
-    def 
+    def __str__(self):
+        return self
+    
+    # Method to create a new user
+    def create_business(self):
+        self.save()
+    
+    # Method to delete a business
+    def delete_business(self):
+        self.delete()
+
+    # Method to update a business
+    def update_business(self):
+        self.update()
+
+    # Method to search a business
+    @classmethod
+    def business_search(cls, name):
+        return cls.objects.filter(name_icontains=name).all()
+
+    # Method to update a business
+    @classmethod
+    def update_business(cls, name):
+        cls.objects.filter(name=name).update()
