@@ -16,11 +16,33 @@ class Neighborhood(models.Model):
     health_contact = models.IntegerField(null=True, blank=True)
     police_contact = models.IntegerField(null=True, blank=True)
 
+    # Method to convert inputs to a string
     def __st__(self):
         return self
 
+    # Method to create a new neighborhood
     def create_neighborhood(self):
         self.save()
+
+    # Method to delete an existing neighborhood
+    def delete_neighborhood(self):
+        self.delete()
+    
+    # Method to update a neighborhood
+    def update_neighborhood(self):
+        self.update()
+    
+
+    # Method to search a neighborbood
+    @classmethod
+    def find_neighborhood(cls, neighborhood_id):
+        return cls.objects.filter(id=neighborhood_id)
+    
+    # Method to update an occupant
+    @classmethod
+    def update_occupants(cls, occupants):
+        cls.objects.filter(occupants=occupants).update(occupants)
+
 
 # The User class
 class Resident(models.Model):
