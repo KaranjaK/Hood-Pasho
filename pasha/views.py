@@ -8,7 +8,7 @@ from django.http import HttpResponseRedirect
 
 # Create your views here.
 # Default page load
-@login_required(login_url='login')
+# @login_required(login_url='login')
 def index(request):
     return render(request, 'index.html')
 

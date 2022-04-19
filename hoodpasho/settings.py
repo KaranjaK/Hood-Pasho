@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'pasha',
-    'bootstrap4'
+    'bootstrap4',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
