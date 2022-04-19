@@ -9,4 +9,5 @@ urlpatterns = [
     url(r'^register/$', views.signup, name='signup'),
     url(r'^account/', include('django.contrib.auth.urls')),
     url(r'^all-hoods/$', views.hoods, name='hood'),
+    url(r'^new-hood/$', views.create_hood, name='new-hood'),
 ]
