@@ -12,7 +12,7 @@ class Neighborhood(models.Model):
     name = models.CharField(max_length=40)
     location = models.CharField(max_length=40)
     occupants = models.IntegerField()
-    admin = models.ForeignKey('Resident', on_delete=models.CASCADE, related_name='neighbor')
+    admin = models.ForeignKey('Resident', on_delete=models.CASCADE, related_name='neighbor', blank=True, null=True)
     hood_pic = CloudinaryField('image')
     description = models.CharField(max_length=300)
     health_contact = models.IntegerField(null=True, blank=True)
