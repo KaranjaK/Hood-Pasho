@@ -1,4 +1,5 @@
 import email
+from unicodedata import name
 from django.db import models
 from cloudinary.models import CloudinaryField
 from django.contrib.auth.models import User
@@ -19,8 +20,8 @@ class Neighborhood(models.Model):
     police_contact = models.IntegerField(null=True, blank=True)
 
     # Method to convert inputs to a string
-    def __st__(self):
-        return self
+    def __str__(self):
+        return self.name
 
     # Method to create a new neighborhood
     def create_neighborhood(self):
@@ -31,8 +32,9 @@ class Neighborhood(models.Model):
         self.delete()
     
     # Method to update a neighborhood
-    def update_neighborhood(self):
-        self.update()
+    @classmethod
+    def update_neighborhood(cls, id, value):
+        cls.objects.filter(id=id).update(name=value)
     
 
     # Method to search a neighborbood
