@@ -10,4 +10,7 @@ urlpatterns = [
     url(r'^account/', include('django.contrib.auth.urls')),
     url(r'^all-hoods/$', views.hoods, name='hood'),
     url(r'^new-hood/$', views.create_hood, name='new-hood'),
+    url(r'^profile/<username>/edit/$', views.edit_profile, name='edit-profile'),
+    url(r'^join_hood/<id>$', views.join_hood, name='join-hood'),
+    url(r'^leave_hood/<id>$', views.leave_hood, name='leave-hood'),
 ]
