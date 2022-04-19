@@ -7,8 +7,8 @@ from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 
 # Create your views here.
-# Default page load
-# @login_required(login_url='login')
+# Default page load N.B: From the user stories, one has to sign in to use
+@login_required(login_url='login')
 def index(request):
     return render(request, 'index.html')
 
@@ -48,3 +48,5 @@ def create_hood(request):
     else:
         form = NeighborhoodForm()
     return render(request, 'newhood.html', {'form': form})
+
+# View to enable user to 
