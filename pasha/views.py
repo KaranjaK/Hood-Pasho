@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, get_list_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import SignupForm, NeighborhoodForm, UpdateResidentForm, BusinessForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
@@ -49,4 +49,16 @@ def create_hood(request):
         form = NeighborhoodForm()
     return render(request, 'newhood.html', {'form': form})
 
-# View to enable user to 
+# View to enable user to join a neighborhood of choice
+def join_hood(request, id):
+    neighborhood = get_object_or_404(Neighborhood, id=id)
+    request.user.profile.neighborhood = neighborhood
+    request.user.profile.save()
+    return redirect('hood')
+
+# Vie to enable a user to leave a neighbithood choosen
+def leave_hood(request, id):
+    hood = get_object_or_404(Neighborhood, id=id)
+    request.user.profile.neighbourhood = None
+    request.user.profile.save()
+    return redirect('hood')
