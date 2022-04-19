@@ -56,9 +56,25 @@ def join_hood(request, id):
     request.user.profile.save()
     return redirect('hood')
 
-# Vie to enable a user to leave a neighbithood choosen
+# View to enable a user to leave a neighbithood choosen
 def leave_hood(request, id):
     hood = get_object_or_404(Neighborhood, id=id)
     request.user.profile.neighbourhood = None
     request.user.profile.save()
     return redirect('hood')
+
+# View to display a user's profile
+def profile(request, username):
+    return render(request, 'profile.html')
+
+# View to enable a user to edit a profile
+def edit_profile(request, username):
+    user = User.objects.get(username=username)
+    if request.method == 'POST':
+        form = UpdateResidentForm(request.POST, request.FILES, instance=request.user.profile)
+        if form.is_valid():
+            form.save()
+            return redirect('profile', user.username)
+    else:
+        form = UpdateResidentForm(instance=request.user.profile)
+    return render(request, 'editprofile.html', {'form': form})
