@@ -10,16 +10,13 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
-from distutils.command.config import config
-from email.policy import default
 from pathlib import Path
-from decouple import config
+from decouple import config, Csv
 import cloudinary
 import cloudinary.api
 import cloudinary.uploader
 import os
 import django_heroku
-from decouple import config, Csv
 import dj_database_url
 
 # SECURITY WARNING: keep the secret key used in production secret!
