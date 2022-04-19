@@ -7,6 +7,6 @@ from django.conf import settings
 urlpatterns = [
     url('^$', views.index, name='index'),
     url(r'^register/$', views.signup, name='signup'),
-    url(r'^account/$', include('django.contrib.auth.urls')),
+    url(r'^account/', include('django.contrib.auth.urls')),
     url(r'^all-hoods/$', views.hoods, name='hood'),
 ]
