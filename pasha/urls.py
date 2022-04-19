@@ -14,4 +14,5 @@ urlpatterns = [
     url(r'^leave_hood/<id>$', views.leave_hood, name='leave-hood'),
     url(r'^profile/<username>$', views.profile, name='profile'),
     url(r'^profile/<username>/edit/$', views.edit_profile, name='edit-profile'),
+    url(r'^search/$', views.search_business, name='search'),
 ]
