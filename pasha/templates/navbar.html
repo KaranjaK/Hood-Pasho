@@ -1,10 +1,9 @@
 <nav class="navbar navbar-expand-lg navbar-dark">
   <div class="container-fluid">
-    <button type="button" id="sidebarCollapse" class="btn btn-sm btn-info">
-      <i class="fas fa-align-left"></i>
-    </button>
+    <h1>HoodPasho</h1>
+
     <button
-      class="btn btn-dark d-inline-block d-lg-none ml-auto"
+      class="navbar-toggler"
       type="button"
       data-toggle="collapse"
       data-target="#navbarSupportedContent"
@@ -12,20 +11,52 @@
       aria-expanded="false"
       aria-label="Toggle navigation"
     >
-      <i class="fas fa-align-justify"></i>
+      <span class="navbar-toggler-icon"></span>
     </button>
-
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="nav navbar-nav ml-auto">
+      <ul class="navbar-nav ml-auto">
         {% if user.is_authenticated %}
-        <li class="nav-item active">
-          <img
-            class="rounded-circle nav-img"
-            src="{{ user.profile.profile_picture.url }}"
-            alt=""
-          />
-          &nbsp; <span class="text-white">{{user.username|title}}</span>
+        <img class="rounded-circle nav-img"src="{{ user.profile.profile_picture.url }}" alt="">
+        &nbsp; <span class="text-white">{{user.username|title}}</span>
+        <li class="mb-4">
+            <a href="{% url 'profile' user.username %}">
+                &nbsp; <button class="btn btn-sm btn-outline-light">Profile</button>
+            </a>
+
         </li>
+        </li>
+        <li class="mb-4">
+            <a href="{% url 'edit-profile' user.username%}">
+                <i class="fas fa-edit"></i>&nbsp;
+                &nbsp; <button class="btn btn-sm btn-outline-light">Edit Profile</button>
+            </a>
+        </li>
+        <li class="mb-4">
+            <a href="{% url 'hood' %}">
+                <i class="fas fa-home"></i>&nbsp;
+                &nbsp; <button class="btn btn-sm btn-outline-light">Hood</button>
+            </a>
+        </li>
+         {% if user.profile.neighbourhood %}
+        <li class="mb-4">
+            <a href="{% url 'single-hood' user.profile.neighbourhood.id %}">
+                <i class="fas fa-paper-plane"></i>&nbsp;
+                &nbsp;{{user.profile.neighbourhood.name}}
+            </a>
+        </li>
+        {% else %}
+        <li class="mb-4">
+            <a href=""> &nbsp;
+                <button class="btn btn-sm btn-outline-light">No Hood Yet</button>
+            </a>
+        </li>
+        {% endif %}
+        <li class="mb-4">
+            &nbsp; <a href="{% url 'logout' %}" class="btn btn-sm btn-outline-danger"> Logout</a>
+        </li>
+    </ul>
+    
+        
         {% else %}
         <li class="nav-item active">
           <a class="nav-link" href="{% url 'login' %}">Log In</a>

@@ -1,3 +1,4 @@
+from cgitb import html
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import SignupForm, NeighborhoodForm, UpdateResidentForm, BusinessForm
 from django.contrib.auth import login, authenticate
@@ -42,7 +43,7 @@ def create_hood(request):
         form = NeighborhoodForm(request.POST, request.FILES)
         if form.is_valid():
             hood = form.save(commit=False)
-            hood.admin = request.user.profile
+            hood.admin = request.user.resident
             hood.save()
             return redirect('hood')
     else:
@@ -59,13 +60,14 @@ def join_hood(request, id):
 # View to enable a user to leave a neighbithood choosen
 def leave_hood(request, id):
     hood = get_object_or_404(Neighborhood, id=id)
-    request.user.profile.neighbourhood = None
+    request.user.profile.hood = None
     request.user.profile.save()
     return redirect('hood')
 
 # View to display a user's profile
 def profile(request, username):
-    return render(request, 'profile.html')
+    user = User.objects.get(username=username)
+    return render(request, 'profile.html',{'user':user})
 
 # View to enable a user to edit a profile
 def edit_profile(request, username):
